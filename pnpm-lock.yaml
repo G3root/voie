@@ -19,9 +19,6 @@ dependencies:
   '@libsql/client':
     specifier: ^0.3.4
     version: 0.3.4
-  '@radix-ui/colors':
-    specifier: 3.0.0-rc.4
-    version: 3.0.0-rc.4
   '@t3-oss/env-core':
     specifier: ^0.6.1
     version: 0.6.1(typescript@5.2.2)(zod@3.22.2)
@@ -94,9 +91,6 @@ dependencies:
   typescript:
     specifier: 5.2.2
     version: 5.2.2
-  windy-radix-palette:
-    specifier: 1.0.0-rc.0
-    version: 1.0.0-rc.0(@radix-ui/colors@3.0.0-rc.4)(tailwindcss@3.3.3)
   zod:
     specifier: ^3.22.2
     version: 3.22.2
@@ -640,10 +634,6 @@ packages:
 
   /@panva/hkdf@1.1.1:
     resolution: {integrity: sha512-dhPeilub1NuIG0X5Kvhh9lH4iW3ZsHlnzwgwbOlgwQ2wG1IqFzsgHqmKPk3WzsdWAeaxKJxgM0+W433RmN45GA==}
-    dev: false
-
-  /@radix-ui/colors@3.0.0-rc.4:
-    resolution: {integrity: sha512-dUG9WQCdjKPiiqbQsahUGmOuC+9kCltckQtej7hkVIQp56xirLaMsNrOs9xMYXnIbNqK/vZCmoEk+q1Nda+2AA==}
     dev: false
 
   /@rushstack/eslint-patch@1.4.0:
@@ -3856,16 +3846,6 @@ packages:
     hasBin: true
     dependencies:
       isexe: 2.0.0
-    dev: false
-
-  /windy-radix-palette@1.0.0-rc.0(@radix-ui/colors@3.0.0-rc.4)(tailwindcss@3.3.3):
-    resolution: {integrity: sha512-KW90etBbOr8EwV7z5PS7optM7n31HqVMUe1kWoLFZqDcpXtLyeYwxrIPv0yUevNaIWUXxFIPzdNzTWAvVON3UA==}
-    peerDependencies:
-      '@radix-ui/colors': '>=3.0.0-rc.4'
-      tailwindcss: '>=3.0.0'
-    dependencies:
-      '@radix-ui/colors': 3.0.0-rc.4
-      tailwindcss: 3.3.3(ts-node@10.9.1)
     dev: false
 
   /wordwrap@1.0.0:

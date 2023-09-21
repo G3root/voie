@@ -1,24 +1,18 @@
-import CredentialsProvider from "next-auth/providers/credentials";
-
+import EmailProvider from "next-auth/providers/email";
 import { AuthOptions } from "next-auth";
 import { DrizzleAdapter } from "./auth-adapter";
+import { env } from "@/env.mjs";
+import NextAuth from "next-auth/next";
 
 export const authOptions: AuthOptions = {
   adapter: DrizzleAdapter(),
   providers: [
-    CredentialsProvider({
-      name: "Sign in",
-      credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "example@example.com",
-        },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        const user = { id: "1", name: "Admin", email: "admin@admin.com" };
-        return user;
+    EmailProvider({
+      sendVerificationRequest: ({ url }) => {
+        if (env.NODE_ENV === "development") {
+          console.log(`Login link: ${url}`);
+          return;
+        }
       },
     }),
   ],
@@ -26,3 +20,5 @@ export const authOptions: AuthOptions = {
     signIn: "/sign-in",
   },
 };
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);

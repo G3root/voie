@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1695185370709,
+      "tag": "0000_lucky_wolf_cub",
+      "breakpoints": true
+    }
+  ]
+}

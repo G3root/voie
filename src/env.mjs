@@ -6,4 +6,5 @@ export const env = createEnv({
     DATABASE_URL: z.string().min(1),
     DATABASE_AUTH_TOKEN: z.string().min(1),
   },
+  experimental__runtimeEnv: "",
 });

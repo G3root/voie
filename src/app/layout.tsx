@@ -19,10 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          inter.className
-        )}
+        className={cn("bg-background font-sans antialiased", inter.className)}
       >
         <ThemeProvider
           attribute="class"
@@ -30,10 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <NavBar />
-            <div className="flex-1">{children}</div>
-          </div>
+          <body>{children}</body>
         </ThemeProvider>
       </body>
     </html>

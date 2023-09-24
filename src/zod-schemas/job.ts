@@ -23,13 +23,20 @@ export const jobModelFields = {
   description: z.string(),
   level: Level,
   type: Type,
+  createdAt: z.string(),
+  updatedAt: z.string(),
 };
 
 export const jobModel = z.object({
   ...jobModelFields,
 });
 
-export const jobCreateFormSchema = jobModel.omit({ id: true, publicId: true });
+export const jobCreateFormSchema = jobModel.omit({
+  id: true,
+  publicId: true,
+  createdAt: true,
+  updatedAt: true,
+});
 export const jobGetSchema = z.object({ id: z.string() });
 
 export type TType = z.infer<typeof Type>;

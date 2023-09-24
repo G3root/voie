@@ -23,7 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import * as z from "zod";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import {
@@ -49,7 +49,6 @@ export const JobCreateForm = () => {
 
     if (res.success) {
       toast.success("job created successfully");
-      form.reset();
     } else {
       toast.success(`error: ${res.message}`);
     }

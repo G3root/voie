@@ -31,6 +31,7 @@ import {
   TJobCreateFormSchema,
   JobLevelMap,
   JobTypeMap,
+  JobLocationTypeMap,
 } from "@/zod-schemas/job";
 import { TJobPostApiRes } from "@/app/api/job/route";
 import { Button } from "@/components/ui/button";
@@ -109,6 +110,38 @@ export const JobCreateForm = () => {
                       {Object.keys(JobLevelMap).map((val) => (
                         <SelectItem key={val} value={val}>
                           {JobLevelMap[val as keyof typeof JobLevelMap]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="locationType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Location Type</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {Object.keys(JobLocationTypeMap).map((val) => (
+                        <SelectItem key={val} value={val}>
+                          {
+                            JobLocationTypeMap[
+                              val as keyof typeof JobLocationTypeMap
+                            ]
+                          }
                         </SelectItem>
                       ))}
                     </SelectContent>

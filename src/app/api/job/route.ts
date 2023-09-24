@@ -2,15 +2,17 @@ import { InferApiRoute, api } from "@/lib/api";
 import { generatePublicId } from "@/lib/nano-id";
 import { jobs } from "@/schema";
 import { jobCreateFormSchema } from "@/zod-schemas/job";
-
+import { revalidateTag } from "next/cache";
 export const POST = (req: Request) =>
   api
     .create(req)
     .input({ body: jobCreateFormSchema })
     .procedure(async ({ ctx, input }) => {
-      return ctx.db
+      const data = ctx.db
         .insert(jobs)
         .values({ ...input.body, publicId: generatePublicId() });
+      revalidateTag(PostCacheTag);
+      return data;
     });
 
 export const GET = (req: Request) =>
@@ -23,3 +25,5 @@ export const GET = (req: Request) =>
 
 export type TJobPostApiRes = InferApiRoute<typeof POST>;
 export type TJobGetApiResp = InferApiRoute<typeof GET>;
+
+export const PostCacheTag = "all-jobs";

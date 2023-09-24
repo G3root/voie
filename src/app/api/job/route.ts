@@ -29,5 +29,5 @@ export const GET = (req: Request) =>
       return query;
     });
 
-export type TPostApiResponse = InferApiRoute<typeof POST>;
-export type TGetApiResponse = InferApiRoute<typeof GET>;
+export type TJobPostApiRes = InferApiRoute<typeof POST>;
+export type TJobGetApiResp = InferApiRoute<typeof GET>;

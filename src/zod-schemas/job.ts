@@ -17,14 +17,14 @@ const Type = z.enum(JobTypes);
 const Level = z.enum(JobLevels);
 
 export const jobModelFields = {
-  id: z.string(),
+  id: z.number(),
   publicId: z.string(),
   title: z.string(),
   description: z.string(),
   level: Level,
   type: Type,
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  createdAt: z.date().nullable(),
+  updatedAt: z.date().nullable(),
 };
 
 export const jobModel = z.object({
@@ -42,3 +42,4 @@ export const jobGetSchema = z.object({ id: z.string() });
 export type TType = z.infer<typeof Type>;
 export type TLevel = z.infer<typeof Level>;
 export type TJobCreateFormSchema = z.infer<typeof jobCreateFormSchema>;
+export type TJob = z.infer<typeof jobModel>;

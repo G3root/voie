@@ -125,7 +125,7 @@ const builder = <Context>(ctx: Context) => ({
               return NextResponse.json(
                 returnResponse({
                   success: true,
-                  data: result ? result : {},
+                  data: result as TSuccessAPIResponse<Awaited<Result>>,
                   message: null,
                 }),
                 {

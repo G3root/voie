@@ -1,7 +1,6 @@
 import { InferApiRoute, api } from "@/lib/api";
 import { jobs } from "@/schema";
-import { jobCreateFormSchema, jobGetSchema } from "@/zod-schemas/job";
-import { eq } from "drizzle-orm";
+import { jobCreateFormSchema } from "@/zod-schemas/job";
 
 export const POST = (req: Request) =>
   api
@@ -14,19 +13,9 @@ export const POST = (req: Request) =>
 export const GET = (req: Request) =>
   api
     .create(req)
-    .input({ query: jobGetSchema })
+    .input(undefined)
     .procedure(async ({ ctx, input }) => {
-      const {
-        query: { id: jobId },
-      } = input;
-      const query = await ctx.db.query.jobs.findFirst({
-        where: eq(jobs.publicId, jobId),
-      });
-
-      if (!query) {
-        throw new Error(`job with the id:${jobId} not found`);
-      }
-      return query;
+      return ctx.db.select().from(jobs);
     });
 
 export type TJobPostApiRes = InferApiRoute<typeof POST>;

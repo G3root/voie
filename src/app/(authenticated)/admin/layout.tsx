@@ -22,10 +22,10 @@ export default async function AuthenticatedDashboardLayout({
 
   return (
     <NextAuthProvider session={session}>
-      <div className="relative flex flex-col min-h-screen  lg:flex-row ">
-        <SideBar />
-        <div className="p-4 border-l bg-background border-border lg:w-full lg:p-6 lg:ml-64">
-          {children}
+      <div className="p-10">
+        <div className="flex flex-col gap-y-8 lg:flex-row lg:gap-x-12 lg:gap-y-0">
+          <SideBar />
+          <div className="flex-1 lg:max-w-2xl">{children}</div>
         </div>
       </div>
     </NextAuthProvider>

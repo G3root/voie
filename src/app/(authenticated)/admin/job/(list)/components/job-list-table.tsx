@@ -27,6 +27,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { deleteJobById } from "@/queries/job";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const columns: ColumnDef<TJob>[] = [
   {
@@ -36,6 +38,14 @@ const columns: ColumnDef<TJob>[] = [
   {
     accessorKey: "title",
     header: "Position",
+    cell: ({ row }) => {
+      const job = row.original;
+      return (
+        <Link href={`/admin/job/edit/${job.publicId}`}>
+          {row.getValue("title")}
+        </Link>
+      );
+    },
   },
   {
     accessorKey: "level",
@@ -52,6 +62,8 @@ const columns: ColumnDef<TJob>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const router = useRouter();
       const job = row.original;
       return (
         <DropdownMenu>
@@ -74,6 +86,13 @@ const columns: ColumnDef<TJob>[] = [
               }}
             >
               Delete
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                router.push(`/admin/job/edit/${job.publicId}`);
+              }}
+            >
+              Edit
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

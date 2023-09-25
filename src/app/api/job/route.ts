@@ -1,4 +1,5 @@
 import { InferApiRoute, api } from "@/lib/api";
+import { AllJobsCacheTag } from "@/lib/cache-tags";
 import { generatePublicId } from "@/lib/nano-id";
 import { jobs } from "@/schema";
 import { jobCreateFormSchema } from "@/zod-schemas/job";
@@ -11,7 +12,7 @@ export const POST = (req: Request) =>
       const data = ctx.db
         .insert(jobs)
         .values({ ...input.body, publicId: generatePublicId() });
-      revalidateTag(PostCacheTag);
+      revalidateTag(AllJobsCacheTag);
       return data;
     });
 
@@ -25,5 +26,3 @@ export const GET = (req: Request) =>
 
 export type TJobPostApiRes = InferApiRoute<typeof POST>;
 export type TJobGetApiResp = InferApiRoute<typeof GET>;
-
-export const PostCacheTag = "all-jobs";

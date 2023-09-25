@@ -1,10 +1,10 @@
+import { JobForm } from "@/components/forms/job-form";
 import { PageLayout } from "../../components/page-layout";
-import { JobCreateForm } from "./components/form";
 
 export default function JobCreatePage() {
   return (
     <PageLayout title="Jobs" description="create your jobs">
-      <JobCreateForm />
+      <JobForm isEditMode={false} />
     </PageLayout>
   );
 }

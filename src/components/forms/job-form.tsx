@@ -32,23 +32,46 @@ import {
   JobLevelMap,
   JobTypeMap,
   JobLocationTypeMap,
+  TJob,
 } from "@/zod-schemas/job";
 import { Button } from "@/components/ui/button";
-import { createJob } from "@/queries/job";
+import { createJob, updateJobById } from "@/queries/job";
 import { RotateCw } from "lucide-react";
 
-export const JobCreateForm = () => {
+type JobCreateFormProps =
+  | {
+      isEditMode: false;
+      data?: never;
+      jobId?: never;
+    }
+  | { isEditMode: true; data: TJob; jobId: string };
+
+export const JobForm: React.FC<JobCreateFormProps> = (props) => {
+  const { isEditMode, data, jobId } = props;
   const form = useForm<TJobCreateFormSchema>({
     resolver: zodResolver(jobCreateFormSchema),
+    ...(isEditMode && {
+      defaultValues: {
+        description: data.description,
+        level: data.level,
+        locationType: data.locationType,
+        title: data.title,
+        type: data.type,
+      },
+    }),
   });
 
   const onSubmit = async (data: TJobCreateFormSchema) => {
-    const res = await createJob(data);
+    const actionMessage = isEditMode ? "updated" : "created";
+
+    const res = isEditMode
+      ? await updateJobById(jobId, data)
+      : await createJob(data);
 
     if (res.success) {
-      toast.success("job created successfully");
+      toast.success(`Job ${actionMessage} successfully`);
     } else {
-      toast.success(`error: ${res.message}`);
+      toast.error(`Error: ${res.message}`);
     }
   };
 

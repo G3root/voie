@@ -47,3 +47,5 @@ export const DELETE = (req: Request, { params }: { params: { id: string } }) =>
     });
 
 export type TJobGetOneApiRes = InferApiRoute<typeof GET>;
+
+export type TJobDeleteOneApiRes = InferApiRoute<typeof DELETE>;

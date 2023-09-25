@@ -33,8 +33,9 @@ import {
   JobTypeMap,
   JobLocationTypeMap,
 } from "@/zod-schemas/job";
-import { TJobPostApiRes } from "@/app/api/job/route";
 import { Button } from "@/components/ui/button";
+import { createJob } from "@/queries/job";
+import { RotateCw } from "lucide-react";
 
 export const JobCreateForm = () => {
   const form = useForm<TJobCreateFormSchema>({
@@ -42,11 +43,7 @@ export const JobCreateForm = () => {
   });
 
   const onSubmit = async (data: TJobCreateFormSchema) => {
-    const req = await fetch("/api/job", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    const res = (await req.json()) as TJobPostApiRes;
+    const res = await createJob(data);
 
     if (res.success) {
       toast.success("job created successfully");
@@ -54,6 +51,8 @@ export const JobCreateForm = () => {
       toast.success(`error: ${res.message}`);
     }
   };
+
+  const isLoading = form.formState.isSubmitting;
   return (
     <Card>
       <CardHeader />
@@ -181,7 +180,10 @@ export const JobCreateForm = () => {
         </Form>
       </CardContent>
       <CardFooter className="justify-end">
-        <Button type="submit" form="create-job-form">
+        <Button disabled={isLoading} type="submit" form="create-job-form">
+          {isLoading ? (
+            <RotateCw className="mr-2 h-4 w-4 animate-spin" />
+          ) : null}
           Save
         </Button>
       </CardFooter>

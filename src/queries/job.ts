@@ -1,9 +1,10 @@
 import {
   TJobGetOneApiRes,
   TJobDeleteOneApiRes,
+  TJobUpdateOneApiRes,
 } from "@/app/api/job/[id]/route";
 import { TJobGetApiResp, TJobPostApiRes } from "@/app/api/job/route";
-import { AllJobsCacheTag } from "@/lib/cache-tags";
+import { AllJobsCacheTag, JobDetailCacheTag } from "@/lib/cache-tags";
 import { TJobCreateFormSchema } from "@/zod-schemas/job";
 
 export const getJobs = async () => {
@@ -16,7 +17,9 @@ export const getJobs = async () => {
 };
 
 export const getJobById = async (id: string) => {
-  const req = await fetch(`http://localhost:3000/api/job/${id}`);
+  const req = await fetch(`http://localhost:3000/api/job/${id}`, {
+    next: { tags: [JobDetailCacheTag(id)] },
+  });
   const res = (await req.json()) as TJobGetOneApiRes;
 
   return res;
@@ -38,6 +41,16 @@ export const createJob = async (data: TJobCreateFormSchema) => {
   });
 
   const res = (await req.json()) as TJobPostApiRes;
+
+  return res;
+};
+
+export const updateJobById = async (id: string, data: TJobCreateFormSchema) => {
+  const req = await fetch(`http://localhost:3000/api/job/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+  const res = (await req.json()) as TJobUpdateOneApiRes;
 
   return res;
 };

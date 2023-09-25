@@ -15,7 +15,7 @@ export const jobs = sqliteTable("job", {
   description: text("description").notNull(),
   type: text("type").$type<TType>().notNull(),
   level: text("level").$type<TLevel>().notNull(),
-  locationType: text("level").$type<TLocationType>().notNull(),
+  locationType: text("location_type").$type<TLocationType>().notNull(),
 
   createdAt: integer("created_at", { mode: "timestamp" }).default(
     sql`(strftime('%s', 'now'))`
